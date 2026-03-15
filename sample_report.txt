@@ -1,0 +1,1995 @@
+================================================================================
+FORENSIC IMAGE SIMILARITY ANALYSIS REPORT
+Companion tool — Deepfake and Image Forgery Detection (C. R. Johnson)
+================================================================================
+Generated   : 2026-03-15 08:50:23
+Directory   : D:\Work\Other Presentations and CTFs\WICourts 2026\images
+Images found: 10
+Pairs compared: 45
+LPIPS       : unavailable — install torch + lpips
+
+THRESHOLDS USED
+  pHash Hamming ≤ 10   → display-equivalent zone
+  pHash Hamming ≤ 19   → content-equivalent zone (if SSIM floor met)
+  SSIM          ≥ 0.95   → display-equivalent zone
+  SSIM          ≥ 0.75   → content-equivalent floor (below → divergent)
+  PSNR          ≥ 40.0 dB → perceptually lossless
+
+--------------------------------------------------------------------------------
+FORENSIC CLASSIFICATION TAXONOMY  (Johnson, Deepfake and Image Forgery Detection)
+--------------------------------------------------------------------------------
+  PIXEL-IDENTICAL      File SHA-256 hashes match. Bitwise duplicate.
+  RASTER-EQUIVALENT    Decoded rasters match; file hashes differ.
+                       Container/metadata changed; pixels untouched.
+  DISPLAY-EQUIVALENT   Perceptually indistinguishable within thresholds.
+                       pHash Hamming ≤ 10 AND SSIM ≥ 0.95.
+                       Likely platform transcode, minor resize, or
+                       lossy recompression.
+  CONTENT-EQUIVALENT   Same scene; encoding differences detectable.
+                       pHash Hamming ≤ 19 AND SSIM ≥ 0.75.
+                       May be crop, color-grade, or aggressive compression.
+  CONTENT-DIVERGENT    Different visual content, OR SSIM < 0.75 regardless
+                       of pHash distance. A low SSIM with globally stable
+                       pHash is a strong indicator of localized alteration.
+
+  ⚠  SSIM FLOOR OVERRIDE
+     If SSIM falls below 0.75, the result is forced to CONTENT-DIVERGENT
+     even when pHash Hamming is low. This prevents localized but visually
+     significant alterations (splice, inpainting, clone-stamp, composite)
+     from hiding behind a globally stable perceptual hash.
+     When this override fires, tile-level analysis is recommended.
+
+INTERPRETIVE NOTE
+  Perceptual similarity ≠ forensic identity. A display-equivalent pair
+  may have completely different PRNU signatures and compression lineages.
+  Perceptual hashes are discovery/clustering tools; cryptographic hashes
+  are chain-of-custody tools. They answer different questions.
+
+================================================================================
+SECTION 1 — PER-IMAGE FINGERPRINTS
+================================================================================
+
+--------------------------------------------------------------------------------
+FILE: 2ndcapture.png
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\2ndcapture.png
+  Size          : 184,271 bytes
+  Dimensions    : 263 x 352 px
+  Color mode    : RGB
+  Format        : PNG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : f0772f1c40c34926335390175e5055ec
+    SHA-256     : 2e1faf66c82a6e57e84db325f37e86dedc51fc2cabb46970353eab39b4b86ea7
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : fcadbfc72489ff536b6584abdcc5988cedbaedd61df2211589e2fb998f217a08
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : 7f7f7f7f00000001
+    dHash       : d6d6d6d6d95103a3
+    pHash       : 8185ec7aa3d4ce72  ← primary forensic hash
+    wHash       : ffff7f7f20000001
+
+
+--------------------------------------------------------------------------------
+FILE: altered.png
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\altered.png
+  Size          : 2,139,481 bytes
+  Dimensions    : 906 x 1209 px
+  Color mode    : RGB
+  Format        : PNG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : efe014a43dfb7ac4ec472759d2db112e
+    SHA-256     : f89713435f4336965b1f09c1473f4dd7247bfe1b1b963dd3b819b2497aa249ac
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : 41e12b03b148d79fa7d42e3dc46b661dc7e8624b29b98f819b1489d9cda33806
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : 1f1fdfff21000001
+    dHash       : f3f6b2b9d95103a3
+    pHash       : 88942d4faaf8fa23  ← primary forensic hash
+    wHash       : 1f1fffff69008001
+
+
+--------------------------------------------------------------------------------
+FILE: enhanced.jpg
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\enhanced.jpg
+  Size          : 193,064 bytes
+  Dimensions    : 907 x 1209 px
+  Color mode    : RGB
+  Format        : JPG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : 0402ed9e2c523ae9ef3df4c6075e2b61
+    SHA-256     : b1a8f7b69a19e196df0a51f46a5f14e9708553a66650f67f8c4d628377c22de0
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : ee4d079e68eabd00ccecfa121173c2db607f3dcacd753b705bf33b1b13085e4e
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : ff7f7f7f00000001
+    dHash       : d6d6d6d6d99103a3
+    pHash       : 8185ec7aa3d4ca73  ← primary forensic hash
+    wHash       : ffff7f7f20000001
+
+
+--------------------------------------------------------------------------------
+FILE: fullysynthetic.png
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\fullysynthetic.png
+  Size          : 189,889 bytes
+  Dimensions    : 263 x 352 px
+  Color mode    : RGB
+  Format        : PNG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : 5795682c354770bdd4ab7dd0870c09ef
+    SHA-256     : 74c591ec3539d5a8321ce905b979c84710a8020d61e7166b6f0f5d5a6285fbb8
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : 836a37d71483bce7db88674ad76fb6c32203d664fd30c5afc3786dd37ad2e4e0
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : ffffff7f00000000
+    dHash       : b6b6b6b699a02343
+    pHash       : c084ef5ab3d4c873  ← primary forensic hash
+    wHash       : ffffff7f00000001
+
+
+--------------------------------------------------------------------------------
+FILE: modified.png
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\modified.png
+  Size          : 178,417 bytes
+  Dimensions    : 264 x 352 px
+  Color mode    : RGB
+  Format        : PNG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : 8f8cc63be4a5ff79420d29755d4ad8ea
+    SHA-256     : 84f5846b75ec70b3b90763afee6ee89ffa0556d53fcce803cb82d43cd64ffff8
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : 765625feb863cd8622028ed81eeedda877b11d402167287122315852ee7082b6
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : ffffff7f00000000
+    dHash       : b7b6f6b699902303
+    pHash       : c0846e53bbccd273  ← primary forensic hash
+    wHash       : ffffffff00000000
+
+
+--------------------------------------------------------------------------------
+FILE: n1copy.jpg
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\n1copy.jpg
+  Size          : 195,679 bytes
+  Dimensions    : 906 x 1209 px
+  Color mode    : RGB
+  Format        : JPG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : 2388db969511b8814b1e2c1616b20cac
+    SHA-256     : 2f95db2d613a13aad985a54fdecb385ced0f84a58a2b7e3e3fbc019491219373
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : d4e7ef0c1b13f73a21c601902b64ccff94a4a398694de42c8ae8b2b65295e865
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : 7f7f7f7f00000001
+    dHash       : d6d6d6d6d95103a3
+    pHash       : 8185ec7aabd4ca72  ← primary forensic hash
+    wHash       : ffff7f7f20000001
+
+
+--------------------------------------------------------------------------------
+FILE: n6copy.jpg
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\n6copy.jpg
+  Size          : 196,122 bytes
+  Dimensions    : 907 x 1209 px
+  Color mode    : RGB
+  Format        : JPG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : 2b65208d8a98e2602e74442b235b8ec5
+    SHA-256     : 4e86c00726ad4108fcca888aaac844e83a438bdb395dc6c1d369e9bc51be5e10
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : 7d27af4704ec3d2511c2cc290edf3ea6215f346cfb83b3aadcd227f1d04b3b2b
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : 7f7f7f7f00000001
+    dHash       : d6d6d6d6d95103a3
+    pHash       : 8185ec7aa3d4ce72  ← primary forensic hash
+    wHash       : ffff7f7f20000001
+
+
+--------------------------------------------------------------------------------
+FILE: original.jpg
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\original.jpg
+  Size          : 1,481,006 bytes
+  Dimensions    : 3024 x 4032 px
+  Color mode    : RGB
+  Format        : JPG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : 1e73b2442039818c1c9011e8631dd8df
+    SHA-256     : a9f6c3f29e4f8d13e386445fb9b9070f717aec78d73480898ceb08bc4d85a34c
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : b920862e5f0198e6ce2b055ec90701c9d68e0b039e1471b0e90ed81a6e87913f
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : 7f7f7f7f00000001
+    dHash       : d6d6d6d6d95103a3
+    pHash       : 8185ec7aabd4ca72  ← primary forensic hash
+    wHash       : ffff7f7f20000001
+
+
+--------------------------------------------------------------------------------
+FILE: partsynthetic.jpg
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\partsynthetic.jpg
+  Size          : 229,261 bytes
+  Dimensions    : 756 x 1008 px
+  Color mode    : RGB
+  Format        : JPG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : db45f8e91b650f365f1fdefe29435516
+    SHA-256     : a105c6339dd7235aa657cf3d788630bbc6f458570060848a65f90b7031c976f6
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : 8de724f997a344a8074bc43a99b15c0b722ce78937e3afce548d76972088b94b
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : 7f7f7f7f00000001
+    dHash       : d6d6d6d6d95007a7
+    pHash       : 8185ac7ba3d4cd72  ← primary forensic hash
+    wHash       : ffff7f7f20000001
+
+
+--------------------------------------------------------------------------------
+FILE: pngconvert.png
+--------------------------------------------------------------------------------
+  Path          : D:\Work\Other Presentations and CTFs\WICourts 2026\images\pngconvert.png
+  Size          : 9,139,119 bytes
+  Dimensions    : 3024 x 4032 px
+  Color mode    : RGB
+  Format        : PNG
+
+  CRYPTOGRAPHIC HASHES  (raw file bytes)
+    MD5         : 1c6f8d058ef4eb74e669ff707bcdab3e
+    SHA-256     : 880ece59af78eeb5f76b19b1e3f4fabc70cc2b6d306f2b41397852f10415203d
+
+  DECODED RASTER HASH   (format-agnostic identity)
+    SHA-256     : b920862e5f0198e6ce2b055ec90701c9d68e0b039e1471b0e90ed81a6e87913f
+
+  PERCEPTUAL HASHES     (64-bit fingerprints)
+    aHash       : 7f7f7f7f00000001
+    dHash       : d6d6d6d6d95103a3
+    pHash       : 8185ec7aabd4ca72  ← primary forensic hash
+    wHash       : ffff7f7f20000001
+
+================================================================================
+SECTION 2 — PAIRWISE COMPARISONS
+================================================================================
+
+--------------------------------------------------------------------------------
+COMPARISON: 2ndcapture.png  ↔  altered.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.5631 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=22. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 9  [display-equivalent zone]
+    dHash   : 13  [content-equivalent zone]
+    pHash   : 22  [content-divergent]  ← primary
+    wHash   : 12  [content-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 13.20 dB
+    SSIM          : 0.563092  (1.0 = identical)
+    MS-SSIM       : 0.563092 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: 2ndcapture.png  ↔  enhanced.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 suggests same underlying scene with detectable encoding differences (SSIM=0.8982). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 1  [display-equivalent zone]
+    dHash   : 2  [display-equivalent zone]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 24.34 dB
+    SSIM          : 0.898230  (1.0 = identical)
+    MS-SSIM       : 0.898230 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: 2ndcapture.png  ↔  fullysynthetic.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2169 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=10. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 18  [content-equivalent zone]
+    pHash   : 10  [display-equivalent zone]  ← primary
+    wHash   : 2  [display-equivalent zone]
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 16.01 dB
+    SSIM          : 0.216862  (1.0 = identical)
+    MS-SSIM       : 0.216862 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 10 (within the content-equivalent zone), but
+    SSIM=0.2169 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: 2ndcapture.png  ↔  modified.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2299 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=16. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 15  [content-equivalent zone]
+    pHash   : 16  [content-equivalent zone]  ← primary
+    wHash   : 4  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 16.07 dB
+    SSIM          : 0.229916  (1.0 = identical)
+    MS-SSIM       : 0.229916 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 16 (within the content-equivalent zone), but
+    SSIM=0.2299 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: 2ndcapture.png  ↔  n1copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 suggests same underlying scene with detectable encoding differences (SSIM=0.9483). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 30.11 dB
+    SSIM          : 0.948270  (1.0 = identical)
+    MS-SSIM       : 0.948270 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: 2ndcapture.png  ↔  n6copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=0 suggests same underlying scene with detectable encoding differences (SSIM=0.9482). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 0  [identical]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 30.11 dB
+    SSIM          : 0.948209  (1.0 = identical)
+    MS-SSIM       : 0.948209 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: 2ndcapture.png  ↔  original.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 suggests same underlying scene with detectable encoding differences (SSIM=0.9492). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 30.18 dB
+    SSIM          : 0.949225  (1.0 = identical)
+    MS-SSIM       : 0.949225 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: 2ndcapture.png  ↔  partsynthetic.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=4 suggests same underlying scene with detectable encoding differences (SSIM=0.9105). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 3  [display-equivalent zone]
+    pHash   : 4  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 25.77 dB
+    SSIM          : 0.910458  (1.0 = identical)
+    MS-SSIM       : 0.910458 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: 2ndcapture.png  ↔  pngconvert.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 suggests same underlying scene with detectable encoding differences (SSIM=0.9492). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 30.18 dB
+    SSIM          : 0.949225  (1.0 = identical)
+    MS-SSIM       : 0.949225 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: altered.png  ↔  enhanced.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.5500 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=20. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 10  [display-equivalent zone]
+    dHash   : 15  [content-equivalent zone]
+    pHash   : 20  [content-equivalent zone]  ← primary
+    wHash   : 12  [content-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 12.56 dB
+    SSIM          : 0.549991  (1.0 = identical)
+    MS-SSIM       : 0.549991 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: altered.png  ↔  fullysynthetic.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.3155 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=20. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 11  [content-equivalent zone]
+    dHash   : 19  [content-equivalent zone]
+    pHash   : 20  [content-equivalent zone]  ← primary
+    wHash   : 12  [content-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 11.62 dB
+    SSIM          : 0.315472  (1.0 = identical)
+    MS-SSIM       : 0.315472 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: altered.png  ↔  modified.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.3395 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=18. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 11  [content-equivalent zone]
+    dHash   : 16  [content-equivalent zone]
+    pHash   : 18  [content-equivalent zone]  ← primary
+    wHash   : 12  [content-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 11.93 dB
+    SSIM          : 0.339456  (1.0 = identical)
+    MS-SSIM       : 0.339456 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 18 (within the content-equivalent zone), but
+    SSIM=0.3395 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: altered.png  ↔  n1copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.5918 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=20. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 9  [display-equivalent zone]
+    dHash   : 13  [content-equivalent zone]
+    pHash   : 20  [content-equivalent zone]  ← primary
+    wHash   : 12  [content-equivalent zone]
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 12.97 dB
+    SSIM          : 0.591818  (1.0 = identical)
+    MS-SSIM       : 0.591818 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: altered.png  ↔  n6copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.5917 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=22. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 9  [display-equivalent zone]
+    dHash   : 13  [content-equivalent zone]
+    pHash   : 22  [content-divergent]  ← primary
+    wHash   : 12  [content-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 12.97 dB
+    SSIM          : 0.591729  (1.0 = identical)
+    MS-SSIM       : 0.591729 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: altered.png  ↔  original.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.5926 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=20. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 9  [display-equivalent zone]
+    dHash   : 13  [content-equivalent zone]
+    pHash   : 20  [content-equivalent zone]  ← primary
+    wHash   : 12  [content-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 12.94 dB
+    SSIM          : 0.592644  (1.0 = identical)
+    MS-SSIM       : 0.592644 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: altered.png  ↔  partsynthetic.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.5576 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=22. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 9  [display-equivalent zone]
+    dHash   : 16  [content-equivalent zone]
+    pHash   : 22  [content-divergent]  ← primary
+    wHash   : 12  [content-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 12.80 dB
+    SSIM          : 0.557573  (1.0 = identical)
+    MS-SSIM       : 0.557573 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: altered.png  ↔  pngconvert.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.5926 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=20. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 9  [display-equivalent zone]
+    dHash   : 13  [content-equivalent zone]
+    pHash   : 20  [content-equivalent zone]  ← primary
+    wHash   : 12  [content-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 12.94 dB
+    SSIM          : 0.592644  (1.0 = identical)
+    MS-SSIM       : 0.592644 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: enhanced.jpg  ↔  fullysynthetic.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.4239 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=8. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 3  [display-equivalent zone]
+    dHash   : 16  [content-equivalent zone]
+    pHash   : 8  [display-equivalent zone]  ← primary
+    wHash   : 2  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.34 dB
+    SSIM          : 0.423866  (1.0 = identical)
+    MS-SSIM       : 0.423866 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 8 (within the content-equivalent zone), but
+    SSIM=0.4239 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: enhanced.jpg  ↔  modified.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.4496 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=14. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 3  [display-equivalent zone]
+    dHash   : 13  [content-equivalent zone]
+    pHash   : 14  [content-equivalent zone]  ← primary
+    wHash   : 4  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.29 dB
+    SSIM          : 0.449600  (1.0 = identical)
+    MS-SSIM       : 0.449600 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 14 (within the content-equivalent zone), but
+    SSIM=0.4496 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: enhanced.jpg  ↔  n1copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 suggests same underlying scene with detectable encoding differences (SSIM=0.9476). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 1  [display-equivalent zone]
+    dHash   : 2  [display-equivalent zone]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 25.90 dB
+    SSIM          : 0.947636  (1.0 = identical)
+    MS-SSIM       : 0.947636 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: enhanced.jpg  ↔  n6copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 suggests same underlying scene with detectable encoding differences (SSIM=0.9494). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 1  [display-equivalent zone]
+    dHash   : 2  [display-equivalent zone]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 25.92 dB
+    SSIM          : 0.949443  (1.0 = identical)
+    MS-SSIM       : 0.949443 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: enhanced.jpg  ↔  original.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 suggests same underlying scene with detectable encoding differences (SSIM=0.9424). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 1  [display-equivalent zone]
+    dHash   : 2  [display-equivalent zone]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 25.56 dB
+    SSIM          : 0.942423  (1.0 = identical)
+    MS-SSIM       : 0.942423 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: enhanced.jpg  ↔  partsynthetic.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=6 suggests same underlying scene with detectable encoding differences (SSIM=0.9128). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 1  [display-equivalent zone]
+    dHash   : 5  [display-equivalent zone]
+    pHash   : 6  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 23.49 dB
+    SSIM          : 0.912838  (1.0 = identical)
+    MS-SSIM       : 0.912838 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: enhanced.jpg  ↔  pngconvert.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 suggests same underlying scene with detectable encoding differences (SSIM=0.9424). May be a crop, color-graded derivative, or aggressive recompression.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 1  [display-equivalent zone]
+    dHash   : 2  [display-equivalent zone]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 25.56 dB
+    SSIM          : 0.942423  (1.0 = identical)
+    MS-SSIM       : 0.942423 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images depict the same scene but show measurable
+    encoding differences. Could indicate a crop, color grade,
+    aggressive recompression, or format conversion that altered
+    visual content. Further analysis of compression lineage,
+    PRNU, and metadata is recommended before making lineage claims.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: fullysynthetic.png  ↔  modified.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2730 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=10. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 5  [display-equivalent zone]
+    pHash   : 10  [display-equivalent zone]  ← primary
+    wHash   : 2  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 16.81 dB
+    SSIM          : 0.273025  (1.0 = identical)
+    MS-SSIM       : 0.273025 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 10 (within the content-equivalent zone), but
+    SSIM=0.2730 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: fullysynthetic.png  ↔  n1copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2072 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=10. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 18  [content-equivalent zone]
+    pHash   : 10  [display-equivalent zone]  ← primary
+    wHash   : 2  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.83 dB
+    SSIM          : 0.207151  (1.0 = identical)
+    MS-SSIM       : 0.207151 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 10 (within the content-equivalent zone), but
+    SSIM=0.2072 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: fullysynthetic.png  ↔  n6copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2073 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=10. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 18  [content-equivalent zone]
+    pHash   : 10  [display-equivalent zone]  ← primary
+    wHash   : 2  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.83 dB
+    SSIM          : 0.207263  (1.0 = identical)
+    MS-SSIM       : 0.207263 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 10 (within the content-equivalent zone), but
+    SSIM=0.2073 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: fullysynthetic.png  ↔  original.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2067 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=10. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 18  [content-equivalent zone]
+    pHash   : 10  [display-equivalent zone]  ← primary
+    wHash   : 2  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.87 dB
+    SSIM          : 0.206736  (1.0 = identical)
+    MS-SSIM       : 0.206736 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 10 (within the content-equivalent zone), but
+    SSIM=0.2067 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: fullysynthetic.png  ↔  partsynthetic.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.1941 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=12. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 19  [content-equivalent zone]
+    pHash   : 12  [content-equivalent zone]  ← primary
+    wHash   : 2  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.66 dB
+    SSIM          : 0.194074  (1.0 = identical)
+    MS-SSIM       : 0.194074 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 12 (within the content-equivalent zone), but
+    SSIM=0.1941 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: fullysynthetic.png  ↔  pngconvert.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2067 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=10. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 18  [content-equivalent zone]
+    pHash   : 10  [display-equivalent zone]  ← primary
+    wHash   : 2  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.87 dB
+    SSIM          : 0.206736  (1.0 = identical)
+    MS-SSIM       : 0.206736 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 10 (within the content-equivalent zone), but
+    SSIM=0.2067 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: modified.png  ↔  n1copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2174 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=14. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 15  [content-equivalent zone]
+    pHash   : 14  [content-equivalent zone]  ← primary
+    wHash   : 4  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.87 dB
+    SSIM          : 0.217390  (1.0 = identical)
+    MS-SSIM       : 0.217390 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 14 (within the content-equivalent zone), but
+    SSIM=0.2174 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: modified.png  ↔  n6copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2175 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=16. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 15  [content-equivalent zone]
+    pHash   : 16  [content-equivalent zone]  ← primary
+    wHash   : 4  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.87 dB
+    SSIM          : 0.217527  (1.0 = identical)
+    MS-SSIM       : 0.217527 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 16 (within the content-equivalent zone), but
+    SSIM=0.2175 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: modified.png  ↔  original.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2196 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=14. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 15  [content-equivalent zone]
+    pHash   : 14  [content-equivalent zone]  ← primary
+    wHash   : 4  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.91 dB
+    SSIM          : 0.219628  (1.0 = identical)
+    MS-SSIM       : 0.219628 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 14 (within the content-equivalent zone), but
+    SSIM=0.2196 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: modified.png  ↔  partsynthetic.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2214 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=18. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 16  [content-equivalent zone]
+    pHash   : 18  [content-equivalent zone]  ← primary
+    wHash   : 4  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.80 dB
+    SSIM          : 0.221391  (1.0 = identical)
+    MS-SSIM       : 0.221391 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 18 (within the content-equivalent zone), but
+    SSIM=0.2214 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: modified.png  ↔  pngconvert.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  CONTENT-DIVERGENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  SSIM=0.2196 is below the Content-Equivalent floor (0.75), indicating substantial pixel-level differences despite pHash Hamming=14. This pattern is consistent with a significant localized alteration (splice, inpainting, clone-stamp, or composite element) whose global hash signature was not large enough to exceed the pHash threshold alone. Recommend tile-level analysis.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 4  [display-equivalent zone]
+    dHash   : 15  [content-equivalent zone]
+    pHash   : 14  [content-equivalent zone]  ← primary
+    wHash   : 4  [display-equivalent zone]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 15.91 dB
+    SSIM          : 0.219628  (1.0 = identical)
+    MS-SSIM       : 0.219628 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are visually distinct. They do not share the
+    same depicted content at a perceptual level.
+
+    ⚠  SSIM FLOOR OVERRIDE TRIGGERED: The pHash Hamming distance
+    was 14 (within the content-equivalent zone), but
+    SSIM=0.2196 fell below the floor of 0.75.
+    This pattern — low SSIM with a globally stable perceptual hash —
+    is a strong indicator of a localized alteration such as a splice,
+    inpainting, clone-stamp, or composite insertion. The overall image
+    structure was preserved but a region was substantially changed.
+    Tile-level (block) analysis is recommended to localize the edit.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: n1copy.jpg  ↔  n6copy.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  DISPLAY-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 (≤10), SSIM=0.9918 (≥0.95). Perceptually indistinguishable under defined tolerances. Likely a lossy transcode, platform recompression, or minor resize.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 45.22 dB (≥ lossless threshold — perceptually indistinguishable)
+    SSIM          : 0.991793  (1.0 = identical)
+    MS-SSIM       : 0.991793 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are perceptually indistinguishable to a human
+    observer under normal viewing conditions. The differences are
+    consistent with lossy compression, platform transcoding, or
+    minor resizing. They are NOT the same file and NOT the same
+    decoded raster. Each has an independent forensic identity.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: n1copy.jpg  ↔  original.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  DISPLAY-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=0 (≤10), SSIM=0.9874 (≥0.95). Perceptually indistinguishable under defined tolerances. Likely a lossy transcode, platform recompression, or minor resize.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 0  [identical]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 41.60 dB (≥ lossless threshold — perceptually indistinguishable)
+    SSIM          : 0.987408  (1.0 = identical)
+    MS-SSIM       : 0.987408 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are perceptually indistinguishable to a human
+    observer under normal viewing conditions. The differences are
+    consistent with lossy compression, platform transcoding, or
+    minor resizing. They are NOT the same file and NOT the same
+    decoded raster. Each has an independent forensic identity.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: n1copy.jpg  ↔  partsynthetic.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  DISPLAY-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=6 (≤10), SSIM=0.9533 (≥0.95). Perceptually indistinguishable under defined tolerances. Likely a lossy transcode, platform recompression, or minor resize.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 3  [display-equivalent zone]
+    pHash   : 6  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 27.20 dB
+    SSIM          : 0.953271  (1.0 = identical)
+    MS-SSIM       : 0.953271 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are perceptually indistinguishable to a human
+    observer under normal viewing conditions. The differences are
+    consistent with lossy compression, platform transcoding, or
+    minor resizing. They are NOT the same file and NOT the same
+    decoded raster. Each has an independent forensic identity.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: n1copy.jpg  ↔  pngconvert.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  DISPLAY-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=0 (≤10), SSIM=0.9874 (≥0.95). Perceptually indistinguishable under defined tolerances. Likely a lossy transcode, platform recompression, or minor resize.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 0  [identical]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 41.60 dB (≥ lossless threshold — perceptually indistinguishable)
+    SSIM          : 0.987408  (1.0 = identical)
+    MS-SSIM       : 0.987408 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are perceptually indistinguishable to a human
+    observer under normal viewing conditions. The differences are
+    consistent with lossy compression, platform transcoding, or
+    minor resizing. They are NOT the same file and NOT the same
+    decoded raster. Each has an independent forensic identity.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: n6copy.jpg  ↔  original.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  DISPLAY-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 (≤10), SSIM=0.9875 (≥0.95). Perceptually indistinguishable under defined tolerances. Likely a lossy transcode, platform recompression, or minor resize.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 41.61 dB (≥ lossless threshold — perceptually indistinguishable)
+    SSIM          : 0.987462  (1.0 = identical)
+    MS-SSIM       : 0.987462 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are perceptually indistinguishable to a human
+    observer under normal viewing conditions. The differences are
+    consistent with lossy compression, platform transcoding, or
+    minor resizing. They are NOT the same file and NOT the same
+    decoded raster. Each has an independent forensic identity.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: n6copy.jpg  ↔  partsynthetic.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  DISPLAY-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=4 (≤10), SSIM=0.9534 (≥0.95). Perceptually indistinguishable under defined tolerances. Likely a lossy transcode, platform recompression, or minor resize.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 3  [display-equivalent zone]
+    pHash   : 4  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 27.20 dB
+    SSIM          : 0.953422  (1.0 = identical)
+    MS-SSIM       : 0.953422 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are perceptually indistinguishable to a human
+    observer under normal viewing conditions. The differences are
+    consistent with lossy compression, platform transcoding, or
+    minor resizing. They are NOT the same file and NOT the same
+    decoded raster. Each has an independent forensic identity.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: n6copy.jpg  ↔  pngconvert.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  DISPLAY-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=2 (≤10), SSIM=0.9875 (≥0.95). Perceptually indistinguishable under defined tolerances. Likely a lossy transcode, platform recompression, or minor resize.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 2  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 41.61 dB (≥ lossless threshold — perceptually indistinguishable)
+    SSIM          : 0.987462  (1.0 = identical)
+    MS-SSIM       : 0.987462 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are perceptually indistinguishable to a human
+    observer under normal viewing conditions. The differences are
+    consistent with lossy compression, platform transcoding, or
+    minor resizing. They are NOT the same file and NOT the same
+    decoded raster. Each has an independent forensic identity.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: original.jpg  ↔  partsynthetic.jpg
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  DISPLAY-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=6 (≤10), SSIM=0.9553 (≥0.95). Perceptually indistinguishable under defined tolerances. Likely a lossy transcode, platform recompression, or minor resize.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 3  [display-equivalent zone]
+    pHash   : 6  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 27.50 dB
+    SSIM          : 0.955270  (1.0 = identical)
+    MS-SSIM       : 0.955270 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are perceptually indistinguishable to a human
+    observer under normal viewing conditions. The differences are
+    consistent with lossy compression, platform transcoding, or
+    minor resizing. They are NOT the same file and NOT the same
+    decoded raster. Each has an independent forensic identity.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: original.jpg  ↔  pngconvert.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  RASTER-EQUIVALENT                                       │
+  └───────────────────────────────────────────────────────────┘
+  Decoded rasters are pixel-identical; file hashes differ. Likely a lossless container/metadata change (e.g., EXIF rewrite, lossless rotation, format conversion with no re-encode).
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : YES
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 0  [identical]
+    pHash   : 0  [identical]  ← primary
+    wHash   : 0  [identical]
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : ∞ (identical) dB (pixels are identical after decode)
+    SSIM          : 1.000000  (1.0 = identical)
+    MS-SSIM       : 1.000000 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    The decoded image pixels are identical, but the files differ
+    at the container or metadata level. This is consistent with
+    a lossless operation such as EXIF rewrite, orientation flip,
+    or format conversion without re-encoding.
+
+
+--------------------------------------------------------------------------------
+COMPARISON: partsynthetic.jpg  ↔  pngconvert.png
+--------------------------------------------------------------------------------
+
+  ┌─ FORENSIC CLASSIFICATION ─────────────────────────────────┐
+  │  DISPLAY-EQUIVALENT                                      │
+  └───────────────────────────────────────────────────────────┘
+  pHash Hamming=6 (≤10), SSIM=0.9604 (≥0.95). Perceptually indistinguishable under defined tolerances. Likely a lossy transcode, platform recompression, or minor resize.
+
+  HASH COMPARISON
+    File SHA-256 match    : no
+    Raster SHA-256 match  : no
+
+  PERCEPTUAL HASH HAMMING DISTANCES  (0 = identical, 64 = max)
+    aHash   : 0  [identical]
+    dHash   : 3  [display-equivalent zone]
+    pHash   : 6  [display-equivalent zone]  ← primary
+    wHash   : 0  [identical]
+
+  NOTE: Images differ in dimensions. B was resized to match A
+        before pixel-level metric computation.
+
+  PIXEL-LEVEL SIMILARITY METRICS
+    PSNR          : 27.53 dB
+    SSIM          : 0.960427  (1.0 = identical)
+    MS-SSIM       : 0.960427 [fallback: single-scale SSIM]
+    LPIPS         : unavailable  (0.0 = identical) [unavailable]
+
+  PLAIN-LANGUAGE SUMMARY
+    These images are perceptually indistinguishable to a human
+    observer under normal viewing conditions. The differences are
+    consistent with lossy compression, platform transcoding, or
+    minor resizing. They are NOT the same file and NOT the same
+    decoded raster. Each has an independent forensic identity.
+
+================================================================================
+SECTION 3 — SUMMARY MATRIX
+================================================================================
+
+                      2ndcapture.png        altered.png           enhanced.jpg          fullysynthetic.png    modified.png          n1copy.jpg            n6copy.jpg            original.jpg          partsynthetic.jpg     pngconvert.png        
+                      ····························································································································································································································
+2ndcapture.png        (self)                DIVERGENT             CONTENT-EQ            DIVERGENT             DIVERGENT             CONTENT-EQ            CONTENT-EQ            CONTENT-EQ            CONTENT-EQ            CONTENT-EQ            
+altered.png           DIVERGENT             (self)                DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             
+enhanced.jpg          CONTENT-EQ            DIVERGENT             (self)                DIVERGENT             DIVERGENT             CONTENT-EQ            CONTENT-EQ            CONTENT-EQ            CONTENT-EQ            CONTENT-EQ            
+fullysynthetic.png    DIVERGENT             DIVERGENT             DIVERGENT             (self)                DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             
+modified.png          DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             (self)                DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             DIVERGENT             
+n1copy.jpg            CONTENT-EQ            DIVERGENT             CONTENT-EQ            DIVERGENT             DIVERGENT             (self)                DISPLAY-EQ            DISPLAY-EQ            DISPLAY-EQ            DISPLAY-EQ            
+n6copy.jpg            CONTENT-EQ            DIVERGENT             CONTENT-EQ            DIVERGENT             DIVERGENT             DISPLAY-EQ            (self)                DISPLAY-EQ            DISPLAY-EQ            DISPLAY-EQ            
+original.jpg          CONTENT-EQ            DIVERGENT             CONTENT-EQ            DIVERGENT             DIVERGENT             DISPLAY-EQ            DISPLAY-EQ            (self)                DISPLAY-EQ            RASTER-EQ             
+partsynthetic.jpg     CONTENT-EQ            DIVERGENT             CONTENT-EQ            DIVERGENT             DIVERGENT             DISPLAY-EQ            DISPLAY-EQ            DISPLAY-EQ            (self)                DISPLAY-EQ            
+pngconvert.png        CONTENT-EQ            DIVERGENT             CONTENT-EQ            DIVERGENT             DIVERGENT             DISPLAY-EQ            DISPLAY-EQ            RASTER-EQ             DISPLAY-EQ            (self)                
+
+================================================================================
+END OF REPORT
+================================================================================
+
+METHODOLOGICAL DISCLOSURE
+  This report was generated by image_similarity_analysis.py.
+  All perceptual metrics are probabilistic. Classification labels
+  follow the taxonomy in Johnson, Deepfake and Image Forgery Detection.
+  Thresholds are configurable and should be validated against a
+  ground-truth dataset for any specific evidentiary application.
+  Perceptual similarity findings are leads, not conclusions.
+  Chain-of-custody integrity must be established independently.
+
+  imagehash version : 4.3.2
+  scikit-image      : 0.25.2
+  LPIPS / PyTorch   : NOT available
