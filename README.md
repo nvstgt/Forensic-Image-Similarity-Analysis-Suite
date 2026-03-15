@@ -19,9 +19,8 @@ Computes the following similarity / identity measures:
     • LPIPS                   Learned Perceptual Image Patch Similarity
                               (AlexNet backbone; lower = more similar)
 
-  Forensic classification (per your book's taxonomy)
-    Pixel-Identical | Raster-Equivalent | Display-Equivalent |
-    Content-Equivalent | Content-Divergent
+  Forensic classification
+    Pixel-Identical | Raster-Equivalent | Display-Equivalent | Content-Equivalent | Content-Divergent
 
 USAGE
     python image_similarity_analysis.py /path/to/image/directory
@@ -33,17 +32,14 @@ INSTALL DEPENDENCIES
     pip install imagehash Pillow scikit-image numpy torch torchvision lpips
 
 NOTES
-  • LPIPS requires PyTorch.  If unavailable the script degrades gracefully
-    and marks LPIPS as "unavailable".
-  • All images are decoded to RGB before comparison; format differences
-    (JPEG vs PNG vs HEIC) do not affect the decoded-raster metrics.
+  • LPIPS requires PyTorch.  If unavailable the script degrades gracefully and marks LPIPS as "unavailable".
+  • All images are decoded to RGB before comparison; format differences (JPEG vs PNG vs HEIC) do not affect the decoded-raster metrics.
   • Hamming distance thresholds follow common forensic practice:
       0        → identical hash
       1–10     → likely visually equivalent (display-equivalent zone)
       11–19    → probable visible differences (content-equivalent zone)
       ≥ 20     → content-divergent
-  • SSIM is used as a gate at BOTH the Display-Equivalent AND Content-Equivalent
-    boundaries. A low SSIM overrides a low Hamming distance:
+  • SSIM is used as a gate at BOTH the Display-Equivalent AND Content-Equivalent boundaries. A low SSIM overrides a low Hamming distance:
       SSIM ≥ 0.95  required for Display-Equivalent
       SSIM ≥ 0.75  required for Content-Equivalent (below → Divergent)
   • PSNR ≥ 40 dB is treated as perceptually lossless for 8-bit imagery.
