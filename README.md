@@ -9,7 +9,7 @@ Hashing
   • dHash                   difference hash
   • pHash                   perceptual hash (DCT-based)  ← primary
   • wHash                   wavelet hash
-  
+
 Pixel-level metrics (decoded raster)
   • PSNR                    Peak Signal-to-Noise Ratio (dB)
   • SSIM                    Structural Similarity Index (luminance)
@@ -19,19 +19,19 @@ Neural perceptual metric
 
 Forensic classification
   Pixel-Identical | Raster-Equivalent | Display-Equivalent | Content-Equivalent | Content-Divergent
-  
+
 USAGE
   python image_similarity_analysis.py /path/to/image/directory
-  
+
 OUTPUT
   image_similarity_report.txt  (written to the same directory)
-  
+
 INSTALL DEPENDENCIES
   pip install imagehash Pillow scikit-image numpy torch torchvision lpips
-  
+
 NOTES
-  • LPIPS requires PyTorch.  If unavailable the script degrades gracefully and marks LPIPS as "unavailable".
-  • All images are decoded to RGB before comparison; format differences (JPEG vs PNG vs HEIC) do not affect the decoded-raster metrics.
+	• LPIPS requires PyTorch.  If unavailable the script degrades gracefully and marks LPIPS as "unavailable".
+	• All images are decoded to RGB before comparison; format differences (JPEG vs PNG vs HEIC) do not affect the decoded-raster metrics.
   • Hamming distance thresholds follow common forensic practice:
       0        → identical hash
       1–10     → likely visually equivalent (display-equivalent zone)
