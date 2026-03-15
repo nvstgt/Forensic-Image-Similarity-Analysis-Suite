@@ -17,7 +17,7 @@ in a target directory and writes a structured plain-text report:
     • LPIPS                   Learned Perceptual Image Patch Similarity
                               (AlexNet backbone; lower = more similar)
 
-  Forensic classification (per your book's taxonomy)
+  Forensic classification
     Pixel-Identical | Raster-Equivalent | Display-Equivalent |
     Content-Equivalent | Content-Divergent
 
